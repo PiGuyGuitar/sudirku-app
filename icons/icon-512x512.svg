@@ -1,0 +1,8 @@
+<svg width="512" height="512" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <title>SuDirkU Icon</title>
+  <rect width="64" height="64" rx="12" fill="#111827"/>
+  <g transform="translate(8, 8)">
+    <path d="M48 0H0V48H48V0Z M16 48V0 M32 48V0 M48 16H0 M48 32H0"
+          stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+</svg>
