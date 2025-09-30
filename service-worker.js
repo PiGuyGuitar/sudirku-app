@@ -1,13 +1,13 @@
-const CACHE_NAME = 'sudirku-v3';
+const CACHE_NAME = 'sudirku-v4';
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
   './icons/icon-192x192.svg',
   './icons/icon-512x512.svg',
-  // Note: We don't cache the JS bundle as its name might change. 
-  // The service worker will still cache it on the first visit.
-  // We also don't cache CDN assets as they are handled by the browser cache and cross-origin policies.
+  'https://unpkg.com/@babel/standalone/babel.min.js'
+  // Note: We don't cache the TSX/JS bundles as they are dynamic and will be cached by the fetch handler.
+  // We also don't explicitly cache other CDN assets as they are also handled by the fetch handler.
 ];
 
 self.addEventListener('install', event => {
@@ -31,8 +31,10 @@ self.addEventListener('fetch', event => {
 
         return fetch(event.request).then(
           response => {
-            // Check if we received a valid response
-            if (!response || response.status !== 200 || response.type !== 'basic') {
+            // Check if we received a valid response.
+            // Unlike before, we are not checking for response.type === 'basic',
+            // allowing us to cache cross-origin resources like from CDNs.
+            if (!response || response.status !== 200) {
               return response;
             }
 
