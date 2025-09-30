@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sudirku-v4';
+const CACHE_NAME = 'sudirku-v5';
 const urlsToCache = [
   './',
   './index.html',
