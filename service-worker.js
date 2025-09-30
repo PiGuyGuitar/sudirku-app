@@ -1,13 +1,11 @@
-const CACHE_NAME = 'sudirku-v8-react';
+const CACHE_NAME = 'sudirku-v14-vanilla';
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
-  './index.tsx',
-  './App.tsx',
-  './types.ts',
-  './utils/sudokuGenerator.ts',
-  './utils/sudokuLogic.ts',
+  './main.js',
+  './utils/sudokuGenerator.js',
+  './utils/sudokuLogic.js',
   './icons/icon-192x192.svg',
   './icons/icon-512x512.svg',
   'https://cdn.tailwindcss.com',
