@@ -1,10 +1,10 @@
-const CACHE_NAME = 'sudirku-v2';
+const CACHE_NAME = 'sudirku-v3';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icons/icon-192x192.svg',
-  '/icons/icon-512x512.svg',
+  './',
+  './index.html',
+  './manifest.json',
+  './icons/icon-192x192.svg',
+  './icons/icon-512x512.svg',
   // Note: We don't cache the JS bundle as its name might change. 
   // The service worker will still cache it on the first visit.
   // We also don't cache CDN assets as they are handled by the browser cache and cross-origin policies.
