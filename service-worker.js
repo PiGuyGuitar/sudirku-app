@@ -1,13 +1,13 @@
-const CACHE_NAME = 'sudirku-v5';
+const CACHE_NAME = 'sudirku-v6';
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
   './icons/icon-192x192.svg',
   './icons/icon-512x512.svg',
-  'https://unpkg.com/@babel/standalone/babel.min.js'
-  // Note: We don't cache the TSX/JS bundles as they are dynamic and will be cached by the fetch handler.
-  // We also don't explicitly cache other CDN assets as they are also handled by the fetch handler.
+  'https://unpkg.com/@babel/standalone/babel.min.js',
+  'https://esm.sh/react@18.2.0',
+  'https://esm.sh/react-dom@18.2.0/client'
 ];
 
 self.addEventListener('install', event => {
