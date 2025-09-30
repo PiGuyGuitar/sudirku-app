@@ -134,7 +134,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (puzzle && gameState !== 'difficulty') {
-        const newErrors = findErrors(board, puzzle);
+        const newErrors = findErrors(board);
         setErrors(newErrors);
         setErrorsCount(newErrors.flat().filter(Boolean).length);
 

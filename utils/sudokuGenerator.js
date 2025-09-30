@@ -1,7 +1,13 @@
-import { Difficulty, type Puzzle, type Solution } from '../types';
+const Difficulty = {
+  Easy: 'Easy',
+  Medium: 'Medium',
+  Hard: 'Hard',
+  Extreme: 'Extreme',
+  Insane: 'Insane',
+};
 
 // Utility to shuffle an array using Fisher-Yates algorithm
-const shuffle = <T>(array: T[]): T[] => {
+const shuffle = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -10,7 +16,7 @@ const shuffle = <T>(array: T[]): T[] => {
 };
 
 // Check if placing a number is valid in the given position
-const isValid = (board: Puzzle, row: number, col: number, num: number): boolean => {
+const isValid = (board, row, col, num) => {
   // Check row
   for (let x = 0; x < 9; x++) {
     if (board[row][x] === num) return false;
@@ -31,7 +37,7 @@ const isValid = (board: Puzzle, row: number, col: number, num: number): boolean 
 };
 
 // Backtracking solver to fill a board completely
-const solveBoard = (board: Puzzle): boolean => {
+const solveBoard = (board) => {
   for (let row = 0; row < 9; row++) {
     for (let col = 0; col < 9; col++) {
       if (board[row][col] === 0) {
@@ -54,7 +60,7 @@ const solveBoard = (board: Puzzle): boolean => {
 
 // Backtracking function to count the number of solutions for a given board.
 // Returns 0, 1, or 2 (representing "2 or more").
-const countSolutions = (board: Puzzle): number => {
+const countSolutions = (board) => {
     for (let row = 0; row < 9; row++) {
         for (let col = 0; col < 9; col++) {
             if (board[row][col] === 0) {
@@ -75,13 +81,13 @@ const countSolutions = (board: Puzzle): number => {
 };
 
 
-export const generateSudokuPuzzle = (difficulty: Difficulty): { puzzle: Puzzle; solution: Solution } => {
+export const generateSudokuPuzzle = (difficulty) => {
   // 1. Create a fully solved board
-  const solution: Solution = Array(9).fill(null).map(() => Array(9).fill(0));
+  const solution = Array(9).fill(null).map(() => Array(9).fill(0));
   solveBoard(solution);
 
   // 2. Create a copy to remove cells from
-  const puzzle: Puzzle = solution.map(row => [...row]);
+  const puzzle = solution.map(row => [...row]);
 
   // 3. Determine number of cells to remove based on difficulty
   const removals = {
@@ -94,7 +100,7 @@ export const generateSudokuPuzzle = (difficulty: Difficulty): { puzzle: Puzzle; 
   const cellsToRemove = removals[difficulty] || 46;
 
   // 4. Create a shuffled list of all 81 cell coordinates
-  const cells: { row: number; col: number }[] = [];
+  const cells = [];
   for (let i = 0; i < 81; i++) {
     cells.push({ row: Math.floor(i / 9), col: i % 9 });
   }

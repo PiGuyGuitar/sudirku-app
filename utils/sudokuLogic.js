@@ -1,16 +1,14 @@
-import type { Board, Solution } from '../types';
-
 /**
  * Finds all cells that violate Sudoku rules (duplicates in a row, column, or 3x3 box).
- * @param board The current state of the game board.
- * @returns A 9x9 boolean grid where `true` indicates a cell with an error.
+ * @param {Array<Array<number|null>>} board The current state of the game board.
+ * @returns {Array<Array<boolean>>} A 9x9 boolean grid where `true` indicates a cell with an error.
  */
-export const findErrors = (board: Board): boolean[][] => {
-  const errors: boolean[][] = Array(9).fill(null).map(() => Array(9).fill(false));
+export const findErrors = (board) => {
+  const errors = Array(9).fill(null).map(() => Array(9).fill(false));
 
   // Helper function to find and mark duplicates in a group of 9 cells
-  const markDuplicates = (cells: { row: number; col: number }[]) => {
-    const seen = new Map<number, { row: number; col: number }[]>();
+  const markDuplicates = (cells) => {
+    const seen = new Map();
     
     // Group cell positions by the number they contain
     for (const cell of cells) {
@@ -19,7 +17,7 @@ export const findErrors = (board: Board): boolean[][] => {
         if (!seen.has(value)) {
           seen.set(value, []);
         }
-        seen.get(value)!.push(cell);
+        seen.get(value).push(cell);
       }
     }
 
@@ -48,7 +46,7 @@ export const findErrors = (board: Board): boolean[][] => {
   // 3. Check all 3x3 boxes for duplicates
   for (let boxRow = 0; boxRow < 3; boxRow++) {
     for (let boxCol = 0; boxCol < 3; boxCol++) {
-      const boxCells: { row: number; col: number }[] = [];
+      const boxCells = [];
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
           boxCells.push({ row: boxRow * 3 + i, col: boxCol * 3 + j });
@@ -64,8 +62,11 @@ export const findErrors = (board: Board): boolean[][] => {
 
 /**
  * Checks if the board is fully and correctly solved by comparing it to the solution.
+ * @param {Array<Array<number|null>>} board The current game board.
+ * @param {Array<Array<number>>} solution The correct solution.
+ * @returns {boolean}
  */
-export const isBoardSolved = (board: Board, solution: Solution): boolean => {
+export const isBoardSolved = (board, solution) => {
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
       if (board[i][j] === null || board[i][j] !== solution[i][j]) {

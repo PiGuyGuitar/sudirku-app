@@ -1,13 +1,17 @@
-const CACHE_NAME = 'sudirku-v6';
+const CACHE_NAME = 'sudirku-v8-react';
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
+  './index.tsx',
+  './App.tsx',
+  './types.ts',
+  './utils/sudokuGenerator.ts',
+  './utils/sudokuLogic.ts',
   './icons/icon-192x192.svg',
   './icons/icon-512x512.svg',
-  'https://unpkg.com/@babel/standalone/babel.min.js',
-  'https://esm.sh/react@18.2.0',
-  'https://esm.sh/react-dom@18.2.0/client'
+  'https://cdn.tailwindcss.com',
+  'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap'
 ];
 
 self.addEventListener('install', event => {
@@ -24,31 +28,20 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Cache hit - return response
         if (response) {
           return response;
         }
 
         return fetch(event.request).then(
           response => {
-            // Check if we received a valid response.
-            // Unlike before, we are not checking for response.type === 'basic',
-            // allowing us to cache cross-origin resources like from CDNs.
             if (!response || response.status !== 200) {
               return response;
             }
-
-            // IMPORTANT: Clone the response. A response is a stream
-            // and because we want the browser to consume the response
-            // as well as the cache consuming the response, we need
-            // to clone it so we have two streams.
             const responseToCache = response.clone();
-
             caches.open(CACHE_NAME)
               .then(cache => {
                 cache.put(event.request, responseToCache);
               });
-
             return response;
           }
         );
@@ -56,7 +49,6 @@ self.addEventListener('fetch', event => {
   );
 });
 
-// Clean up old caches
 self.addEventListener('activate', event => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
